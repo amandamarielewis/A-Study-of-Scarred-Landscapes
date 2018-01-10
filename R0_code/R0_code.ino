@@ -1,4 +1,4 @@
-//code to get the RO for the MQ-5 and MQ-2 sensors
+//code to get the RO for the MQ-2 sensors
 //run this in a cleanish area to get the ratio
 
 
