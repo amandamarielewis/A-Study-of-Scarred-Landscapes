@@ -1,0 +1,116 @@
+#N canvas 330 88 961 745 10;
+#X obj -407 16 cnv 15 100 60 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj -279 302 print ERROR;
+#X obj -390 269 convert.ascii2pd CR;
+#N canvas 712 205 905 623 in&out 0;
+#X obj 114 116 list-extend;
+#X obj 191 77 sel 10;
+#X msg 191 185 49 53 46 54 54 32 48 46 55 56 32 52 51 53 46 54 51 13
+;
+#X obj 190 157 prepend set;
+#X obj 193 236 gate;
+#X msg 126 209 0;
+#X msg 160 207 1;
+#X obj 116 30 inlet;
+#X obj 198 268 outlet;
+#X obj 87 80 route 10;
+#X connect 0 0 3 0;
+#X connect 1 0 0 1;
+#X connect 1 0 6 0;
+#X connect 1 0 2 0;
+#X connect 1 1 5 0;
+#X connect 2 0 4 1;
+#X connect 3 0 2 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 0;
+#X connect 7 0 9 0;
+#X connect 9 1 0 0;
+#X restore -390 232 pd in&out;
+#X floatatom -388 332 5 0 0 0 - - -;
+#X floatatom -343 331 5 0 0 0 - - -;
+#X floatatom -294 331 5 0 0 0 - - -;
+#X msg -390 166 devices;
+#X obj -390 301 unpack 0 0 0;
+#X obj -388 355 s mq2;
+#X obj -343 355 s mq5;
+#X obj -294 356 s dust;
+#X obj -390 197 comport 4 9600;
+#X text -402 19 Soundscape Trials for Thesis Feb 24 2018;
+#X obj -12 331 dac~;
+#X obj -225 54 r mq2;
+#X obj 68 179 r dust;
+#X obj -267 53 r mq5;
+#X obj -391 622 writesf~ 2;
+#X msg -391 551 open soundscape1.wav;
+#X msg -374 575 start;
+#X msg -374 599 stop;
+#X msg -390 396 open innsbrook000.wav;
+#X msg -321 425 start;
+#X msg -322 452 stop;
+#X obj -389 517 dac~ 1 2;
+#X obj -390 480 readsf~ 2;
+#X msg -391 111 \; pd dsp \$1;
+#X obj -391 83 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj -31 191 osc~ 440;
+#X obj 20 262 *~;
+#X obj 75 310 env~;
+#X obj 76 367 vu 15 120 empty empty -1 -8 0 10 -66577 -1 1 0;
+#X obj 75 338 -100;
+#X obj 251 306 metro 50;
+#X obj 252 333 tabwrite~ oscil;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array oscil 100 float 3;
+#A 0 0.196134 0.16222 0.127669 0.0926168 0.0572005 0.0215593 -0.0141669
+-0.0498373 -0.0853115 -0.12045 -0.155116 -0.189173 -0.222487 -0.254927
+-0.286366 -0.316682 -0.345748 -0.373457 -0.399699 -0.424371 -0.447376
+-0.468625 -0.488033 -0.505526 -0.521033 -0.534487 -0.545841 -0.555051
+-0.562082 -0.566905 -0.569502 -0.569862 -0.567985 -0.563877 -0.55755
+-0.54903 -0.538353 -0.525563 -0.510708 -0.493849 -0.475049 -0.454385
+-0.431935 -0.407787 -0.382034 -0.35478 -0.326133 -0.296206 -0.265116
+-0.232984 -0.199938 -0.166106 -0.131621 -0.0966169 -0.0612342 -0.0256113
+0.010112 0.0457955 0.0812993 0.116484 0.151211 0.185346 0.218749 0.251293
+0.28285 0.313296 0.342511 0.370382 0.396798 0.421656 0.444859 0.46631
+0.485927 0.503636 0.519367 0.533058 0.544656 0.554115 0.561399 0.566477
+0.569328 0.569937 0.568309 0.564449 0.558372 0.550103 0.539674 0.527125
+0.512507 0.495874 0.477287 0.456826 0.434571 0.41061 0.385037 0.357952
+0.329461 0.299675 0.268713 0.236691;
+#X coords 0 1 99 -1 200 140 1;
+#X restore 320 25 graph;
+#X obj 251 276 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 65 221 * 0.01;
+#X connect 2 0 8 0;
+#X connect 2 2 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 9 0;
+#X connect 5 0 10 0;
+#X connect 6 0 11 0;
+#X connect 7 0 12 0;
+#X connect 8 0 4 0;
+#X connect 8 1 5 0;
+#X connect 8 2 6 0;
+#X connect 12 0 3 0;
+#X connect 16 0 38 0;
+#X connect 19 0 18 0;
+#X connect 20 0 18 0;
+#X connect 21 0 18 0;
+#X connect 22 0 26 0;
+#X connect 23 0 26 0;
+#X connect 24 0 26 0;
+#X connect 26 0 25 0;
+#X connect 26 0 25 1;
+#X connect 28 0 27 0;
+#X connect 29 0 30 0;
+#X connect 30 0 31 0;
+#X connect 30 0 14 0;
+#X connect 30 0 14 1;
+#X connect 30 0 35 0;
+#X connect 31 0 33 0;
+#X connect 33 0 32 0;
+#X connect 34 0 35 0;
+#X connect 37 0 34 0;
+#X connect 38 0 30 1;

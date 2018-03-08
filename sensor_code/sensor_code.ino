@@ -1,27 +1,12 @@
-#include <Adafruit_BME280.h>
-
 //code for Amanda Lewis thesis 2017
-//presently includes code for MQ-5, MQ-2, gy-bmp280, and dust sensor
-
-//include lib for adafruit bmp280 sensor
-#include <Wire.h>
-#include <SPI.h>
-#include <Adafruit_Sensor.h>
-
-//#define BME_SCK 13
-//#define BME_MISO 12
-//#define BME_MOSI 11
-//#define BME_CS 10
-Adafruit_BME280 bme; // I2C
+//presently includes code for MQ-5, MQ-2, and dust sensor
 
 // include the lcd library code:
 #include <LiquidCrystal.h>
 
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(3,4,5,6,7,8);
-
-//temp + huminidy
-float temp, pressure, altitude;
+//LiquidCrystal lcd(3,4,5,6,7,8);
+LiquidCrystal lcd(12,11,5,4,3,2);
 
 //define parameters for dust sensor
 #define        COV_RATIO                       0.2            //ug/mmm / mv
@@ -43,26 +28,26 @@ float ratio5;
 float conductivity;
 
 void setup() {
-   //  dust sensor
+
+ // set up the LCD's number of columns and rows:
+   lcd.begin(16, 2);  
+   Serial.begin(9600);                                         //send and receive at 9600 baud
+  
+ //  dust sensor
     pinMode(iled, OUTPUT);
     digitalWrite(iled, LOW);                                     //iled default closed
-    
-  // set up the LCD's number of columns and rows:
-    lcd.begin(16, 2);  
-    Serial.begin(9600);                                         //send and receive at 9600 baud
-  
+   
 }
 
 void loop() {
 
     MQ2();
     MQ5();
-    dust();
-//    bmp280();
-//    waterconductivity();
+//  dust();
+//  waterconductivity();
     
 //to print on lcd screen:
-    lcd.clear();
+//    lcd.clear();
     lcd.setCursor(0,0); 
       lcd.print("MQ2: "); 
       lcd.print(ratio2); 
@@ -73,23 +58,20 @@ void loop() {
 //delay(200);
 
 //  lcd.clear();
-    lcd.setCursor(0,0); 
-      lcd.print("Dust: ");
-      lcd.print(density);
-      lcd.print(" ug/m3\n");  
+//    lcd.setCursor(0,0); 
+//      lcd.print("Dust: ");
+//      lcd.print(density);
+//      lcd.print(" ug/m3\n");  
 //    lcd.setCursor(0,1); 
-//      lcd.print("Temp: ");
-////      lcd.print(temp);
-//      lcd.println(" *C");
-  delay(200);
+//    lcd.print("Temp: ");
+//    lcd.print(temp);
+//    lcd.println(" *C");
+  delay(500);
 Serial.print(ratio2);
-Serial.print(", ");
+Serial.print(" ");
 Serial.print(ratio5);
-Serial.print(", ");
+Serial.print(" ");
 Serial.println(density);
-
-
-//  Serial.println(ratio2+", "+ratio5+", "+density+", "+conductivity);
 
 }
 
@@ -97,7 +79,7 @@ Serial.println(density);
 void MQ2(){
   //MQ-2 Gas Sensor Code  
   /*-Replace the value with a value from the test of c02 levels in clean area -*/
-    float R0 = 0.35;
+    float R0 = 1.27;
     float sensor_volt;
     float RS_gas; // Get value of RS in a GAS
     int sensorValue = analogRead(A3);
@@ -109,17 +91,17 @@ void MQ2(){
 //    Serial.println(sensor_volt);
 //    Serial.print("RS_ratio = ");
 //    Serial.println(RS_gas);
-//    Serial.print("Rs/R0 = ");
-//    Serial.println("MQ2: ");
-//    Serial.println(ratio2);
-//    Serial.print("\n\n");
+//    Serial.println("Rs/R0 = ");
+//    Serial.print("MQ2: ");
+//    Serial.print(ratio2);
+//    Serial.println("\n\n");
 
 
   }
 
 /*-----------------------------------------------------------------------*/
 void MQ5(){
-    float R0 = 1;
+    float R0 = 2.0;
     float sensor_volt;
     float RS_gas; // Get value of RS in a GAS
 //    float ratio5; // Get ratio RS_GAS/RS_air
@@ -135,10 +117,9 @@ void MQ5(){
 //    Serial.println(sensor_volt);
 //    Serial.print("RS_ratio = ");
 //    Serial.println(RS_gas);
-//    Serial.print("Rs/R0 = ");
-//    Serial.println("MQ5: ");
-//    Serial.println(ratio5);
-//    Serial.print("\n\n");
+//    Serial.print("MQ5: ");
+//    Serial.print(ratio5);
+//    Serial.println("\n\n");
   
   }
 
@@ -172,40 +153,22 @@ void dust(){
   /*
   display the result
   */
-//  Serial.print("**********************************************************************\n");
 //  Serial.print("dust: ");
 //  Serial.print(density);
-//  Serial.print(" ug/m3\n");  
+//  Serial.println(" ug/m3\n");  
   
 
   }  
+  
 /*-----------------------------------------------------------------------*/
-void bmp280(){
-    temp = bme.readTemperature();
-    pressure = bme.readPressure() / 100; // 100 Pa = 1 millibar
-//    altitude = bme.readHumidity(1013.25);
-    
-//    Serial.print("---- GY BMP 280 ----------------\n");
-//    Serial.print("Temperature = ");
-//    Serial.print(temp);
-//    Serial.println(" *C");
-//    Serial.print("Pressure = ");
-//    Serial.print(pressure); // 100 Pa = 1 millibar
-//    Serial.println(" mb");
-//    Serial.print("Approx altitude = ");
-//    Serial.print(altitude);
-//    Serial.println(" m");
-//    Serial.print("--------------------------------\n\n");
-//    delay(2000);
-
-  }
-
 void waterconductivity(){
   int sensorval = analogRead(A2);
   float conductivity = sensorval*(5.0/1023.0);
 //  Serial.println(String("Conductivity is ")+ conductivity);
 }
 
+
+/*-----------------------------------------------------------------------*/
 /*
 private function used for dust sensor
 */

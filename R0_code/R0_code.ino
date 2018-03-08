@@ -1,5 +1,6 @@
-//code to get the RO for the MQ-2 sensors
+//code to get the RO for the MQ-2 and MQ-5 sensors
 //run this in a cleanish area to get the ratio
+//change the analog inputs to test each sensor individually first
 
 
 void setup() {
@@ -15,14 +16,22 @@ void loop() {
         /*--- Get a average data by testing 100 times ---*/
     for(int x = 0 ; x < 100 ; x++)
     {
-        sensorValue = sensorValue + analogRead(A0);
+        sensorValue = sensorValue + analogRead(A3); // change input value here
     }
     sensorValue = sensorValue/100.0;
         /*-----------------------------------------------*/
 
     sensor_volt = sensorValue/1024*5.0;
     RS_air = (5.0-sensor_volt)/sensor_volt; // omit *RL
-    R0 = RS_air/6.5; // The ratio of RS/R0 is 6.5 in a clear air from Graph (Found using WebPlotDigitizer)
+    
+//for testing MQ-5 sensor
+    // The ratio of RS/R0 is 6.5 in a clear air from Graph (Found using WebPlotDigitizer)
+    //make sure one of the next values is removed when testing different sensors
+//    R0 = RS_air/6.5;
+
+//for testing MQ-2 sensor
+    // The ratio of RS/R0 is 10 in a clear air
+    R0 = RS_air/10.0; 
 
     Serial.print("sensor_volt = ");
     Serial.print(sensor_volt);
