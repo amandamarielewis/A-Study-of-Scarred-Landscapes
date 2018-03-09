@@ -1,11 +1,10 @@
-#N canvas 532 22 959 844 10;
+#N canvas 374 22 959 844 10;
 #X obj 516 277 print ERROR;
 #X obj 405 244 convert.ascii2pd CR;
-#N canvas 712 205 905 623 in&out 0;
+#N canvas 712 205 905 623 in&out 1;
 #X obj 114 116 list-extend;
 #X obj 191 77 sel 10;
-#X msg 191 185 49 55 46 52 54 32 48 46 55 50 32 51 48 54 46 55 50 13
-;
+#X msg 191 185 49 55 46 49 51 32 49 53 46 48 50 32 48 46 48 48 13;
 #X obj 190 157 prepend set;
 #X obj 193 236 gate;
 #X msg 126 209 0;
@@ -54,7 +53,9 @@ the same folder as this patch;
 #X obj 442 475 osc~;
 #X obj 382 418 *~ 20;
 #X obj 444 418 *~ 15;
+#X obj 316 348 print;
 #X connect 1 0 3 0;
+#X connect 1 0 25 0;
 #X connect 1 2 0 0;
 #X connect 2 0 1 0;
 #X connect 3 0 4 0;
