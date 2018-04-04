@@ -6,7 +6,9 @@
 
 // initialize the library with the numbers of the interface pins
 //LiquidCrystal lcd(3,4,5,6,7,8);
-LiquidCrystal lcd(12,11,5,4,3,2);
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
 
 //define parameters for dust sensor
 #define        COV_RATIO                       0.2            //ug/mmm / mv
@@ -15,8 +17,8 @@ LiquidCrystal lcd(12,11,5,4,3,2);
 
 float density, voltage;
 int   adcvalue;
-const int iled = 9;                                            //drive the led of sensor
-const int vout = 1;                                            //analog input
+const int iled = 7;                                            //drive the led of sensor
+const int vout = 5;                                            //analog input
 
 //for the mq-2 sensor:
 float ratio2;
@@ -43,7 +45,7 @@ void loop() {
 
     MQ2();
     MQ5();
-//  dust();
+  dust();
 //  waterconductivity();
     
 //to print on lcd screen:
@@ -51,16 +53,15 @@ void loop() {
     lcd.setCursor(0,0); 
       lcd.print("MQ2: "); 
       lcd.print(ratio2); 
-    lcd.setCursor(0,1); 
       lcd.print("MQ5: "); 
       lcd.print(ratio5); 
       
 //delay(200);
 
 //  lcd.clear();
-//    lcd.setCursor(0,0); 
-//      lcd.print("Dust: ");
-//      lcd.print(density);
+    lcd.setCursor(0,1); 
+      lcd.print("Dust: ");
+      lcd.print(density);
 //      lcd.print(" ug/m3\n");  
 //    lcd.setCursor(0,1); 
 //    lcd.print("Temp: ");
