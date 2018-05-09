@@ -1,0 +1,15 @@
+#N canvas 141 95 450 300 10;
+#X msg 86 31 devices;
+#X obj 86 61 comport 1 57600;
+#X obj 86 95 cyclone/match 253 254 nn nn 255;
+#X obj 86 140 unpack f f f f f;
+#X obj 140 176 << 8;
+#X obj 140 202 +;
+#X floatatom 140 230 5 0 0 0 - - -;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 2 4 0;
+#X connect 3 3 5 1;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;

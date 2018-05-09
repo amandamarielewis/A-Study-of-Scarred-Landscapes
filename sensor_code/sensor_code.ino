@@ -41,7 +41,7 @@ void setup() {
 void loop() {
 
   MQ2();
-  MQ5();
+  MQ5();ras
   dust();
   //  waterconductivity();
 
